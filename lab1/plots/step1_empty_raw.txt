@@ -1,0 +1,8 @@
+# collector: empty
+# values generated: 1048576
+# T	ops/sec
+1	31139216
+2	6567618
+4	6083864
+8	4877868
+16	5047291

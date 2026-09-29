@@ -1,0 +1,8 @@
+# collector: mutex
+# values generated: 1048576
+# T	ops/sec
+1	28292537
+2	4517799
+4	4566820
+8	3567248
+16	3422457
