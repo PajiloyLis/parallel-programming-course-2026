@@ -27,10 +27,10 @@ Snapshot SimpleCollector::snapshot() {
 }
 
 uint64_t computePercentile(const std::array<uint64_t, 256> &buckets,
-                           uint64_t count, double p) {
+                           const uint64_t count, const double p) {
     if (count == 0)
         return 0;
-    double threshold = count * p;
+    const double threshold = count * p;
     size_t accumulated = 0;
     for (size_t i = 0; i < 256; ++i) {
         accumulated += buckets[i];

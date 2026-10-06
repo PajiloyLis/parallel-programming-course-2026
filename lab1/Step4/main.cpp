@@ -7,9 +7,9 @@
 #include <thread>
 #include <vector>
 
-#include "Generator.h"
+#include "DoubleBufferCollector.h"
+#include "Generator.hpp"
 #include "MetricsCollector.hpp"
-#include "SimpleCollector.hpp"
 
 double run(MetricsCollector &collector,
            const std::vector<uint64_t> &values,
@@ -42,8 +42,7 @@ double run(MetricsCollector &collector,
     auto t1 = std::chrono::steady_clock::now();
 
     uint64_t total = 0;
-    for (auto x: ops)
-        total += x;
+    for (auto x: ops) total += x;
     double elapsed = std::chrono::duration<double>(t1 - t0).count();
     return total / elapsed;
 }
@@ -67,20 +66,21 @@ double measurePoint(MetricsCollector &collector,
     return results[results.size() / 2];
 }
 
-int main() {
-    constexpr uint64_t SEED = 6565;
+int main(int argc, char **argv) {
+
+    std::unique_ptr<MetricsCollector> collector = std::make_unique<DoubleBufferCollector>();
+
+    constexpr uint64_t SEED = 42;
     constexpr size_t N = 1u << 20;
 
     auto values = generate(N, SEED);
     std::cout << "# values generated: " << values.size() << "\n";
 
-    SimpleCollector collector;
-
-    const std::vector<int> thread_counts = {1};
+    const std::vector<int> thread_counts = {1, 2, 4, 8, 16};
 
     std::cout << "# T\tops/sec\n";
-    for (const int T: thread_counts) {
-        double ops = measurePoint(collector, values, T);
+    for (int T: thread_counts) {
+        double ops = measurePoint(*collector, values, T);
         std::cout << T << "\t" << static_cast<uint64_t>(ops) << "\n";
     }
     return 0;

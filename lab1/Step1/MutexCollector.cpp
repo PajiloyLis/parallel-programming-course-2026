@@ -6,8 +6,8 @@ uint64_t computePercentile(const std::array<uint64_t, 256> &buckets,
                            uint64_t count, double p);
 
 void MutexCollector::record(uint64_t value) {
-    std::lock_guard guard(mtx);
     uint64_t b = std::min(value / 4, (uint64_t) 255);
+    std::lock_guard guard(mtx);
     buckets_[b]++;
     count_++;
     sum_ += value;
@@ -16,8 +16,8 @@ void MutexCollector::record(uint64_t value) {
 }
 
 Snapshot MutexCollector::snapshot() {
-    std::lock_guard guard(mtx);
     Snapshot s;
+    std::lock_guard guard(mtx);
     s.buckets = buckets_;
     s.count = count_;
     s.sum = sum_;

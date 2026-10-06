@@ -29,7 +29,7 @@ add_executable(Step2 Step2/MetricsCollector.hpp
         Step2/Generator.hpp
         Step2/PercentileCalc.cpp
         Step2/PercentileCalc.hpp)
-add_executable(stress Step2/stress.cpp
+add_executable(stress2 Step2/stress.cpp
         Step2/MetricsCollector.hpp
         Step2/ShardedCollector.cpp
         Step2/ShardedCollector.hpp
@@ -38,3 +38,43 @@ add_executable(stress Step2/stress.cpp
         Step2/Generator.hpp
         Step2/PercentileCalc.cpp
         Step2/PercentileCalc.hpp)
+add_executable(Step3 Step3/ThreadState.h
+        Step3/ThreadLocalCollector.cpp
+        Step3/ThreadLocalCollector.h
+        Step3/Generator.cpp
+        Step3/Generator.hpp
+        Step3/main.cpp
+        Step3/Snapshot.hpp
+        Step3/MetricsCollector.hpp
+        Step3/PercentileCalc.cpp
+        Step3/PercentileCalc.hpp)
+add_executable(stress3 Step3/ThreadState.h
+        Step3/ThreadLocalCollector.cpp
+        Step3/ThreadLocalCollector.h
+        Step3/Generator.cpp
+        Step3/Generator.hpp
+        Step3/stress.cpp
+        Step3/Snapshot.hpp
+        Step3/MetricsCollector.hpp
+        Step3/PercentileCalc.cpp
+        Step3/PercentileCalc.hpp)
+add_executable(Step4 Step4/ThreadBuffers.h
+        Step4/DoubleBufferCollector.cpp
+        Step4/DoubleBufferCollector.h
+        Step4/Generator.hpp
+        Step4/Generator.cpp
+        Step4/main.cpp
+        Step4/MetricsCollector.hpp
+        Step4/PercentileCalc.hpp
+        Step4/PercentileCalc.cpp
+        Step4/Snapshot.hpp)
+add_executable(stress4 Step4/ThreadBuffers.h
+        Step4/DoubleBufferCollector.cpp
+        Step4/DoubleBufferCollector.h
+        Step4/Generator.hpp
+        Step4/Generator.cpp
+        Step4/MetricsCollector.hpp
+        Step4/PercentileCalc.hpp
+        Step4/PercentileCalc.cpp
+        Step4/Snapshot.hpp
+        Step4/stress.cpp)

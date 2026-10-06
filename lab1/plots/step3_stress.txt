@@ -1,0 +1,7 @@
+writers:          4
+snapshots taken:  10000
+sum by threads:   13067217
+final snap count: 13067217
+broken snapshots: 9739 (97.39%)
+sum greater:      0
+sum less:         9739

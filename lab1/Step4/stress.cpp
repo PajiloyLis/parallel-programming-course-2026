@@ -6,9 +6,9 @@
 #include <thread>
 #include <vector>
 
+#include "DoubleBufferCollector.h"
 #include "Generator.hpp"
 #include "MetricsCollector.hpp"
-#include "ShardedCollector.hpp"
 #include "PercentileCalc.hpp"
 
 int main() {
@@ -19,7 +19,7 @@ int main() {
 
     auto values = generate(N, SEED);
 
-    ShardedCollector collector;
+    DoubleBufferCollector collector;
 
     std::atomic<bool> stop{false};
     std::latch start(1);
@@ -60,13 +60,15 @@ int main() {
     stop.store(true, std::memory_order_relaxed);
     for (auto &t: writers) t.join();
 
+    Snapshot final_snap = collector.snapshot();
+
     uint64_t expected = 0;
     for (auto x: per_thread) expected += x;
 
     std::cout << "writers:          " << NUM_WRITERS << "\n";
     std::cout << "snapshots taken:  " << NUM_SNAPSHOTS << "\n";
     std::cout << "sum by threads:   " << expected << "\n";
-    std::cout << "final snap count: " << s.count << "\n";
+    std::cout << "final snap count: " << final_snap.count << "\n";
     std::cout << "broken snapshots: " << broken
             << " (" << (100.0 * broken / NUM_SNAPSHOTS) << "%)\n";
     std::cout << "sum greater:      " << greater << "\n"

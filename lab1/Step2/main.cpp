@@ -68,9 +68,7 @@ double measurePoint(MetricsCollector &collector,
 
 int main(int argc, char **argv) {
 
-    std::unique_ptr<MetricsCollector> collector;
-
-    collector = std::make_unique<ShardedCollector>();
+    std::unique_ptr<MetricsCollector> collector = std::make_unique<ShardedCollector>();
 
     constexpr uint64_t SEED = 42;
     constexpr size_t N = 1u << 20;
